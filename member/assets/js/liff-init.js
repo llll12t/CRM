@@ -11,7 +11,7 @@
 async function liffInitAndCheckLogin() {
   try {
     // เริ่มต้น LIFF ด้วย LIFF ID ของคุณ
-    await liff.init({ liffId: "YOUR_LIFF_ID_HERE" });
+    await liff.init({ liffId: "2007514355-94vaVQb3" });
 
     // ถ้ายังไม่ล็อกอิน ให้เปลี่ยนไปหน้าล็อกอินของ LINE
     if (!liff.isLoggedIn()) {
