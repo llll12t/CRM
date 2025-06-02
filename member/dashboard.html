@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM – Dashboard สมาชิก</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 (ถ้าใช้งานในหน้าอื่น ๆ) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- LIFF SDK สำหรับการล็อกอินผ่าน LINE -->
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+  <!-- ไฟล์ CSS เฉพาะหน้า member (ถ้ามีเพิ่ม styling) -->
+  <link rel="stylesheet" href="assets/css/member.css" />
+</head>
+<body class="bg-gray-100">
+  <!-- Header Bar -->
+  <div id="headerBar" class="flex justify-between items-center bg-white p-4 shadow">
+    <div class="flex items-center space-x-2">
+      <!-- โลโก้ (ไปยังโฟลเดอร์หลัก) -->
+      <a href="../index.html">
+        <img src="../logo.png" alt="Logo" class="h-8 w-8" />
+      </a>
+      <span class="text-xl font-semibold">MyCRM</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <!-- ไอคอน Tier (ปรับสีตาม Tier ใน dashboard.js) -->
+      <div id="tierIcon" class="h-6 w-6 rounded-full bg-gray-300"></div>
+      <!-- แสดงยอดพ้อยท์ -->
+      <span id="pointsDisplay" class="font-bold text-lg">0</span>
+      <!-- ปุ่มออกจากระบบ -->
+      <button id="logoutButton" class="text-sm text-gray-600 hover:text-gray-900">
+        ออกจากระบบ
+      </button>
+    </div>
+  </div>
+
+  <!-- เนื้อหาหลัก -->
+  <div id="content" class="p-4">
+    <h2 class="text-2xl font-bold mb-4">
+      สวัสดี, <span id="memberName">สมาชิก</span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- การ์ดยอดพ้อยท์ -->
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-medium">ยอดพ้อยท์</h3>
+        <p id="pointBalance" class="text-3xl font-bold mt-2">0</p>
+      </div>
+
+      <!-- การ์ดกิจกรรมล่าสุด -->
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-medium">กิจกรรมล่าสุด</h3>
+        <ul id="latestLogList" class="mt-2 space-y-2">
+          <!-- รายการ log จะแทรกโดย dashboard.js -->
+        </ul>
+      </div>
+
+      <!-- เมนูลัด -->
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-medium">เมนู</h3>
+        <div class="mt-2 space-y-2">
+          <a href="earn_point.html"
+             class="block bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition">
+            สะสมพ้อยท์
+          </a>
+          <a href="use_point.html"
+             class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
+            ใช้พ้อยท์
+          </a>
+          <a href="transfer_point.html"
+             class="block bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition">
+            โอนพ้อยท์
+          </a>
+          <a href="coupon.html"
+             class="block bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition">
+            คูปอง
+          </a>
+          <a href="profile.html"
+             class="block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition">
+            โปรไฟล์
+          </a>
+          <a href="history.html"
+             class="block bg-gray-700 text-white py-2 px-4 rounded hover:bg-gray-800 transition">
+            ประวัติกิจกรรม
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- สคริปต์เรียก API และ LIFF -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/liff-init.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>

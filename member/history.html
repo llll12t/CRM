@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM – ประวัติกิจกรรม</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 สำหรับยืนยันหรือแจ้งเตือน (ถ้าใช้งานในบางส่วนของหน้า) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- LIFF SDK สำหรับการล็อกอินผ่าน LINE -->
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+  <!-- ไฟล์ CSS เฉพาะหน้า member (ถ้ามีเพิ่มเติม) -->
+  <link rel="stylesheet" href="assets/css/member.css" />
+</head>
+<body class="bg-gray-100">
+  <!-- Header Bar -->
+  <div id="headerBar" class="flex justify-between items-center bg-white p-4 shadow">
+    <div class="flex items-center space-x-2">
+      <a href="../index.html">
+        <img src="../logo.png" alt="Logo" class="h-8 w-8" />
+      </a>
+      <span class="text-xl font-semibold">MyCRM</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <div id="tierIcon" class="h-6 w-6 rounded-full bg-gray-300"></div>
+      <span id="pointsDisplay" class="font-bold text-lg">0</span>
+      <button id="logoutButton" class="text-sm text-gray-600 hover:text-gray-900">
+        ออกจากระบบ
+      </button>
+    </div>
+  </div>
+
+  <!-- เนื้อหาหลัก -->
+  <div id="content" class="p-4">
+    <h2 class="text-2xl font-bold mb-4">ประวัติกิจกรรมทั้งหมด</h2>
+
+    <div class="bg-white rounded shadow p-4">
+      <ul id="historyLogList" class="divide-y divide-gray-200">
+        <!-- รายการ log จะแทรกโดย history.js -->
+      </ul>
+      <!-- ถ้าไม่มีประวัติ ให้แสดงข้อความ -->
+      <p id="noHistoryMessage" class="text-center text-gray-500 mt-4 hidden">
+        ยังไม่มีประวัติการทำรายการ
+      </p>
+    </div>
+  </div>
+
+  <!-- สคริปต์เรียก API และ LIFF -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/liff-init.js"></script>
+  <script src="assets/js/history.js"></script>
+</body>
+</html>

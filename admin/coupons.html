@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – จัดการคูปอง</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 สำหรับแจ้งเตือน -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f3f4f6; /* Tailwind’s gray-100 */
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <img src="../logo.png" alt="Logo" class="h-8 w-8" />
+      <span class="text-xl font-semibold">MyCRM Admin – คูปอง</span>
+    </div>
+    <div>
+      <button id="logoutButton" class="text-sm text-gray-600 hover:text-gray-900">
+        ออกจากระบบ
+      </button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="flex-1 p-6">
+    <!-- ปุ่มเพิ่มคูปองใหม่ -->
+    <div class="flex justify-end mb-4">
+      <button
+        id="addCouponButton"
+        class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition"
+      >
+        เพิ่มคูปอง
+      </button>
+    </div>
+
+    <!-- ตารางแสดงคูปอง -->
+    <div class="bg-white rounded shadow overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">CouponID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">CouponCode</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">PointsCost</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">DiscountValue</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ValidFrom</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ValidTo</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">UsageLimit</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">TimesUsed</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="couponsTableBody" class="bg-white divide-y divide-gray-200">
+          <!-- JS จะเติมข้อมูลคูปอง -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Modal: ฟอร์มเพิ่ม/แก้ไขคูปอง -->
+  <div id="couponModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+      <h3 id="modalTitle" class="text-xl font-semibold mb-4">เพิ่มคูปองใหม่</h3>
+      <form id="couponForm" class="space-y-4">
+        <div>
+          <label for="inputCouponCode" class="block text-gray-700 font-medium mb-1">Coupon Code</label>
+          <input
+            type="text"
+            id="inputCouponCode"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="เช่น SAVE50"
+            required
+          />
+        </div>
+        <div>
+          <label for="inputPointsCost" class="block text-gray-700 font-medium mb-1">Points Cost</label>
+          <input
+            type="number"
+            id="inputPointsCost"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="เช่น 100"
+            min="0"
+            required
+          />
+        </div>
+        <div>
+          <label for="inputDiscountValue" class="block text-gray-700 font-medium mb-1">Discount Value (บาท)</label>
+          <input
+            type="number"
+            id="inputDiscountValue"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="เช่น 50"
+            min="0"
+            required
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="inputValidFrom" class="block text-gray-700 font-medium mb-1">Valid From</label>
+            <input
+              type="date"
+              id="inputValidFrom"
+              class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+          </div>
+          <div>
+            <label for="inputValidTo" class="block text-gray-700 font-medium mb-1">Valid To</label>
+            <input
+              type="date"
+              id="inputValidTo"
+              class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+          </div>
+        </div>
+        <div>
+          <label for="inputUsageLimit" class="block text-gray-700 font-medium mb-1">Usage Limit (0 = ไม่จำกัด)</label>
+          <input
+            type="number"
+            id="inputUsageLimit"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="เช่น 100"
+            min="0"
+            required
+          />
+        </div>
+        <div>
+          <label for="inputIsActive" class="block text-gray-700 font-medium mb-1">สถานะ (Active/Inactive)</label>
+          <select
+            id="inputIsActive"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+        <div class="flex justify-between">
+          <button
+            type="button"
+            id="saveCouponButton"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
+          >
+            บันทึก
+          </button>
+          <button
+            type="button"
+            id="cancelCouponButton"
+            class="bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-500 transition"
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t p-4 text-center text-gray-500 text-sm">
+    © 2025 MyCRM. สงวนลิขสิทธิ์.
+  </footer>
+
+  <!-- สคริปต์เรียก API และ JS เฉพาะหน้า -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/coupons.js"></script>
+</body>
+</html>

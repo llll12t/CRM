@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – โปรโมชั่น & อัตราส่วน</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 สำหรับแจ้งเตือน -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f3f4f6; /* Tailwind’s gray-100 */
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <img src="../logo.png" alt="Logo" class="h-8 w-8" />
+      <span class="text-xl font-semibold">MyCRM Admin – โปรโมชั่น</span>
+    </div>
+    <div>
+      <button id="logoutButton" class="text-sm text-gray-600 hover:text-gray-900">
+        ออกจากระบบ
+      </button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="flex-1 p-6">
+    <div class="bg-white rounded shadow p-6 max-w-2xl mx-auto">
+      <h2 class="text-lg font-medium mb-4">ตั้งค่าอัตราส่วนโปรโมชั่น</h2>
+      <form id="promotionsForm" class="space-y-4">
+        <div>
+          <label for="inputEarnRate" class="block text-gray-700 font-medium mb-1">EARN_RATE (พ้อยท์/บาท ลงเป็น “จำนวนพ้อยท์/จำนวนเงิน” เช่น 10/100)</label>
+          <input
+            type="text"
+            id="inputEarnRate"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="เช่น 10/100"
+            required
+          />
+        </div>
+        <div>
+          <label for="inputUseRate" class="block text-gray-700 font-medium mb-1">USE_RATE (บาท/พ้อยท์ ลงเป็น “จำนวนเงิน/จำนวนพ้อยท์” เช่น 1/1)</label>
+          <input
+            type="text"
+            id="inputUseRate"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="เช่น 1/1"
+            required
+          />
+        </div>
+        <div class="flex justify-end">
+          <button
+            type="button"
+            id="savePromotionsButton"
+            class="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition"
+          >
+            บันทึกการตั้งค่า
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t p-4 text-center text-gray-500 text-sm">
+    © 2025 MyCRM. สงวนลิขสิทธิ์.
+  </footer>
+
+  <!-- สคริปต์เรียก API และ JS เฉพาะหน้า -->
+  <script src="../assets/js/api.js"></script>
+  <script src="assets/js/promotions.js"></script>
+</body>
+</html>

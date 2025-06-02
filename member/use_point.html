@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM – ใช้พ้อยท์</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 สำหรับกล่องยืนยัน -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- LIFF SDK สำหรับการล็อกอินผ่าน LINE -->
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+  <!-- ไฟล์ CSS เฉพาะหน้า member (ถ้ามีเพิ่มเติม) -->
+  <link rel="stylesheet" href="assets/css/member.css" />
+</head>
+<body class="bg-gray-100">
+  <!-- Header Bar -->
+  <div id="headerBar" class="flex justify-between items-center bg-white p-4 shadow">
+    <div class="flex items-center space-x-2">
+      <a href="../index.html">
+        <img src="../logo.png" alt="Logo" class="h-8 w-8" />
+      </a>
+      <span class="text-xl font-semibold">MyCRM</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <div id="tierIcon" class="h-6 w-6 rounded-full bg-gray-300"></div>
+      <span id="pointsDisplay" class="font-bold text-lg">0</span>
+      <button id="logoutButton" class="text-sm text-gray-600 hover:text-gray-900">
+        ออกจากระบบ
+      </button>
+    </div>
+  </div>
+
+  <!-- เนื้อหาหลัก -->
+  <div id="content" class="p-4">
+    <h2 class="text-2xl font-bold mb-4">ใช้พ้อยท์</h2>
+
+    <!-- พื้นที่แสดงสินค้าสำหรับแลกพ้อยท์ -->
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+      <!-- การ์ดสินค้าแต่ละรายการจะแทรกโดย use.js -->
+      <p id="noProductsMessage" class="text-center text-gray-500 col-span-full">กำลังโหลดสินค้าสำหรับแลกพ้อยท์…</p>
+    </div>
+
+    <!-- ประวัติการใช้พ้อยท์ -->
+    <div class="bg-white rounded shadow p-4">
+      <h3 class="text-lg font-medium mb-3">ประวัติการใช้พ้อยท์</h3>
+      <ul id="useLogList" class="space-y-2">
+        <!-- รายการ log จะแทรกโดย use.js -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- สคริปต์เรียก API และ LIFF -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/liff-init.js"></script>
+  <script src="assets/js/use.js"></script>
+</body>
+</html>
+

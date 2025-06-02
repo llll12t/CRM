@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyCRM</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 (optional, in case you want alerts here) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    /* กำหนดความสูงเต็มหน้าจอ */
+    .full-height {
+      height: 100vh;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center full-height">
+  <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md text-center">
+    <img src="logo.png" alt="Logo" class="w-24 h-24 mx-auto mb-4" />
+    <h1 class="text-2xl font-bold mb-6">ยินดีต้อนรับสู่ MyCRM</h1>
+    <p class="text-gray-600 mb-8">
+      เลือกบริการที่คุณต้องการใช้งาน
+    </p>
+    <div class="space-y-4">
+      <!-- ปุ่มเข้าสู่ระบบสมาชิก (ผ่าน LIFF) -->
+      <a
+        href="member/dashboard.html"
+        class="block bg-green-500 text-white py-3 rounded-xl font-medium hover:bg-green-600 transition"
+      >
+        เข้าสู่ระบบสมาชิก
+      </a>
+      <!-- ปุ่มเข้าสู่ระบบผู้ดูแล -->
+      <a
+        href="admin/login.html"
+        class="block bg-blue-500 text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition"
+      >
+        เข้าสู่ระบบผู้ดูแล
+      </a>
+    </div>
+    <footer class="mt-8 text-gray-500 text-sm">
+      © 2025 MyCRM. สงวนลิขสิทธิ์.
+    </footer>
+  </div>
+</body>
+</html>

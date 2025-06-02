@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – เข้าสู่ระบบ</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 สำหรับแจ้งเตือน -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    /* ปรับความสูงเต็มหน้าจอและลักษณะพื้นฐาน */
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f3f4f6; /* gray-100 */
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center h-full">
+  <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
+    <h1 class="text-2xl font-bold text-center mb-6">ผู้ดูแลระบบ เข้าสู่ระบบ</h1>
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label for="username" class="block text-gray-700 font-medium mb-1">ชื่อผู้ใช้</label>
+        <input
+          type="text"
+          id="username"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="กรอกชื่อผู้ใช้"
+          required
+        />
+      </div>
+      <div>
+        <label for="password" class="block text-gray-700 font-medium mb-1">รหัสผ่าน</label>
+        <input
+          type="password"
+          id="password"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="กรอกรหัสผ่าน"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+      >
+        เข้าสู่ระบบ
+      </button>
+    </form>
+    <p class="mt-4 text-center text-gray-500 text-sm">
+      © 2025 MyCRM
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      // TODO: เปลี่ยน logic ด้านล่างให้เช็คกับเซิร์ฟเวอร์หรือ Google Sheets SETTINGS
+      // ตัวอย่างนี้ใช้ค่าเดโม "admin" / "password123" เท่านั้น
+      const DEMO_USERNAME = 'admin';
+      const DEMO_PASSWORD = 'password123';
+
+      if (username === DEMO_USERNAME && password === DEMO_PASSWORD) {
+        // ถ้าล็อกอินสำเร็จ ให้เปลี่ยนหน้าไปยัง dashboard ของแอดมิน
+        window.location.href = 'dashboard.html';
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
+          confirmButtonText: 'ตกลง'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

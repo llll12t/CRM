@@ -1,0 +1,119 @@
+/* member.css */
+
+/* Global font and background */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f3f4f6; /* Tailwind's gray-100 */
+  margin: 0;
+  padding: 0;
+}
+
+/* Header bar adjustments */
+#headerBar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: #ffffff; /* Tailwind's white */
+  border-bottom: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+}
+
+/* Content container centering */
+#content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Card-like containers */
+.bg-white {
+  background-color: #ffffff !important;
+}
+.shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+              0 1px 2px rgba(0, 0, 0, 0.06) !important;
+}
+.rounded {
+  border-radius: 0.5rem !important;
+}
+
+/* Typography overrides */
+h2, h3, h4 {
+  color: #1f2937; /* Tailwind's gray-800 */
+}
+p, span, label {
+  color: #4b5563; /* Tailwind's gray-600 */
+}
+
+/* Buttons */
+button {
+  transition: background-color 0.2s ease-in-out;
+}
+button:hover {
+  opacity: 0.9;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  border: 1px solid #d1d5db; /* Tailwind's gray-300 */
+  border-radius: 0.375rem; /* Tailwind's rounded-md */
+}
+
+/* Scrollable lists */
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  list-style: none;
+}
+
+/* Customize the “no data” text style */
+.text-gray-500 {
+  color: #6b7280 !important; /* Tailwind's gray-500 */
+}
+
+/* Tier icon sizes and default color */
+#tierIcon {
+  width: 1.5rem;  /* 24px */
+  height: 1.5rem; /* 24px */
+  border-radius: 9999px; /* fully rounded */
+  background-color: #d1d5db; /* Tailwind's gray-300 */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #content {
+    padding: 1rem;
+  }
+  .grid-cols-3 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+/* Logout button style */
+#logoutButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+#logoutButton:hover {
+  color: #1f2937; /* Tailwind's gray-800 */
+}
+
+/* List item hover effect */
+#latestLogList li:hover,
+#earnLogList li:hover,
+#useLogList li:hover,
+#transferLogList li:hover,
+#couponLogList li:hover,
+#historyLogList li:hover {
+  background-color: #e5e7eb; /* Tailwind's gray-200 */
+}
+
+/* Prevent horizontal overflow on smaller screens */
+html, body {
+  overflow-x: hidden;
+}

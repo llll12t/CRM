@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – จัดการสมาชิก</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 สำหรับกล่องแจ้งเตือน -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f3f4f6; /* Tailwind’s gray-100 */
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <img src="../logo.png" alt="Logo" class="h-8 w-8" />
+      <span class="text-xl font-semibold">MyCRM Admin – สมาชิก</span>
+    </div>
+    <div>
+      <button id="logoutButton" class="text-sm text-gray-600 hover:text-gray-900">
+        ออกจากระบบ
+      </button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="flex-1 p-6">
+    <!-- ปุ่มเพิ่มสมาชิกใหม่ -->
+    <div class="flex justify-end mb-4">
+      <button
+        id="addMemberButton"
+        class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition"
+      >
+        เพิ่มสมาชิก
+      </button>
+    </div>
+
+    <!-- ตารางแสดงสมาชิก -->
+    <div class="bg-white rounded shadow overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">MemberID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Points</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tier</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="membersTableBody" class="bg-white divide-y divide-gray-200">
+          <!-- JS จะเติมข้อมูลสมาชิกที่นี่ -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Modal: ฟอร์มเพิ่ม/แก้ไขสมาชิก -->
+  <div id="memberModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+      <h3 id="modalTitle" class="text-xl font-semibold mb-4">เพิ่มสมาชิกใหม่</h3>
+      <form id="memberForm" class="space-y-4">
+        <div>
+          <label for="inputLineUserID" class="block text-gray-700 font-medium mb-1">Line User ID</label>
+          <input
+            type="text"
+            id="inputLineUserID"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="ระบุ Line User ID"
+            required
+          />
+        </div>
+        <div>
+          <label for="inputName" class="block text-gray-700 font-medium mb-1">ชื่อ–สกุล</label>
+          <input
+            type="text"
+            id="inputName"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="ระบุชื่อ–สกุล"
+            required
+          />
+        </div>
+        <div>
+          <label for="inputEmail" class="block text-gray-700 font-medium mb-1">อีเมล</label>
+          <input
+            type="email"
+            id="inputEmail"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="ระบุอีเมล"
+          />
+        </div>
+        <div>
+          <label for="inputPhone" class="block text-gray-700 font-medium mb-1">เบอร์โทรศัพท์</label>
+          <input
+            type="tel"
+            id="inputPhone"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="ระบุเบอร์โทรศัพท์"
+          />
+        </div>
+        <div>
+          <label for="inputAddress" class="block text-gray-700 font-medium mb-1">ที่อยู่</label>
+          <textarea
+            id="inputAddress"
+            rows="2"
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="ระบุที่อยู่"
+          ></textarea>
+        </div>
+        <div class="flex justify-between">
+          <button
+            type="button"
+            id="saveMemberButton"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
+          >
+            บันทึก
+          </button>
+          <button
+            type="button"
+            id="cancelMemberButton"
+            class="bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-500 transition"
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t p-4 text-center text-gray-500 text-sm">
+    © 2025 MyCRM. สงวนลิขสิทธิ์.
+  </footer>
+
+  <!-- สคริปต์เรียก API และ JS เฉพาะหน้า -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/members.js"></script>
+</body>
+</html>

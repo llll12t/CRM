@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – รายงาน</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SweetAlert2 สำหรับแจ้งเตือน -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f3f4f6; /* gray-100 */
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <img src="../logo.png" alt="Logo" class="h-8 w-8" />
+      <span class="text-xl font-semibold">MyCRM Admin – รายงาน</span>
+    </div>
+    <button id="logoutButton" class="text-sm text-gray-600 hover:text-gray-900">
+      ออกจากระบบ
+    </button>
+  </header>
+
+  <!-- Content -->
+  <main class="flex-1 p-6">
+    <!-- Date Range Picker -->
+    <div class="bg-white rounded shadow p-4 mb-6 max-w-2xl mx-auto">
+      <h2 class="text-lg font-medium mb-3">เลือกช่วงวันที่สำหรับรายงาน</h2>
+      <div class="flex flex-wrap gap-4 items-end">
+        <div>
+          <label for="startDate" class="block text-gray-700 font-medium mb-1">วันที่เริ่ม (dd/MM/yyyy)</label>
+          <input
+            type="date"
+            id="startDate"
+            class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label for="endDate" class="block text-gray-700 font-medium mb-1">วันที่สิ้นสุด (dd/MM/yyyy)</label>
+          <input
+            type="date"
+            id="endDate"
+            class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <button
+          id="loadReportButton"
+          class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition mt-5"
+        >
+          โหลดรายงาน
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div id="summaryCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 max-w-4xl mx-auto hidden">
+      <!-- Card: Total Earned Points -->
+      <div class="bg-white rounded shadow p-4 flex flex-col">
+        <h3 class="text-gray-700 font-medium">ยอดพ้อยท์สะสมทั้งหมด</h3>
+        <p id="totalEarned" class="text-3xl font-bold text-green-600 mt-4">0</p>
+      </div>
+      <!-- Card: Total Used Points -->
+      <div class="bg-white rounded shadow p-4 flex flex-col">
+        <h3 class="text-gray-700 font-medium">ยอดพ้อยท์ที่ใช้ทั้งหมด</h3>
+        <p id="totalUsed" class="text-3xl font-bold text-red-600 mt-4">0</p>
+      </div>
+      <!-- Card: Number of Active Members -->
+      <div class="bg-white rounded shadow p-4 flex flex-col">
+        <h3 class="text-gray-700 font-medium">จำนวนสมาชิกทั้งหมด</h3>
+        <p id="totalMembers" class="text-3xl font-bold text-blue-600 mt-4">0</p>
+      </div>
+      <!-- Card: Number of Active Products -->
+      <div class="bg-white rounded shadow p-4 flex flex-col">
+        <h3 class="text-gray-700 font-medium">จำนวนสินค้าทั้งหมด</h3>
+        <p id="totalProducts" class="text-3xl font-bold text-purple-600 mt-4">0</p>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto hidden" id="chartsSection">
+      <!-- Top Members Chart -->
+      <div class="bg-white rounded shadow p-6">
+        <h3 class="text-gray-700 font-medium mb-4">Top Members (คะแนนรวม)</h3>
+        <canvas id="topMembersChart" class="w-full" height="200"></canvas>
+      </div>
+      <!-- Top Products Chart -->
+      <div class="bg-white rounded shadow p-6">
+        <h3 class="text-gray-700 font-medium mb-4">Top Products (ยอดแลกสินค้า)</h3>
+        <canvas id="topProductsChart" class="w-full" height="200"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t p-4 text-center text-gray-500 text-sm">
+    © 2025 MyCRM. สงวนลิขสิทธิ์.
+  </footer>
+
+  <!-- สคริปต์เรียก API และ JS เฉพาะหน้า -->
+  <script src="../assets/js/api.js"></script>
+  <script src="assets/js/reports.js"></script>
+</body>
+</html>
